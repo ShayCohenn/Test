@@ -12,6 +12,9 @@ import number.comp
 import number.simp   #importing the modules
 import col
 
+
+simp_called = False #boolean to check if called the simp.py before comp.py
+
 def isInt(num):   #checking if the input is an int
     try: 
         int(num)
@@ -39,6 +42,7 @@ def comp():
             print("invalid input")
 
 def simp():
+    global simp_called
     while True: #created a loop to have it on repeat
         print("to test addition press 1")
         print("to test subtraction press 2")
@@ -50,6 +54,7 @@ def simp():
             isInt(num1)
             isInt(num2)
             print(f'{num1} + {num2} = {number.simp.add(num1,num2)}')
+            simp_called = True #allowing to call comp
             menu() #going back to menu after test
         elif task_choice == "2":
             num1 = input("num1 = ")
@@ -57,6 +62,7 @@ def simp():
             isInt(num1)
             isInt(num2)
             print(f'{num1} - {num2} = {number.simp.sub(num1,num2)}')
+            simp_called = True #allowing to call comp
             menu()  #going back to menu after test
         else:       #if the input isn't 1 or 2 it's not valid and will return to the beginning of the loop
             print("invalid input") 
@@ -70,9 +76,9 @@ def menu():
 
         if module_choice == "1":
             simp() #calling the simple function
-        elif module_choice == "2":
+        if module_choice == "2" and simp_called == True:
             comp() #calling the comp function
-        elif module_choice == "3":
+        if module_choice == "3":
             print(f'array 1:{col.array1_index}')
             print(f'array 2:{col.array2_names}')
             print(f'zipped array:{col.myzip(col.array1_index, col.array2_names)}')
@@ -81,4 +87,6 @@ def menu():
             print("invalid input")
 
 if __name__ == "__main__":
+    if simp_called == False:
+        print("You need to call a function from simp before calling the comp funtion")
     menu()
