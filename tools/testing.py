@@ -42,7 +42,7 @@ def comp():
             print("invalid input")
 
 def simp():
-    global simp_called
+    global simp_called #using the global boolean so the changes apply outside the function
     while True: #created a loop to have it on repeat
         print("to test addition press 1")
         print("to test subtraction press 2")
